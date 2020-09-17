@@ -49,6 +49,27 @@ def is_wall((a,b), (c,d)):
         return False
 
 
+def check_north((a,b):
+    """Takes (x,y) axis, runs the direction funtion 
+    and then is_wall to check if the direction is available """
+    (c,d) = (a,b)
+    move_north(c,d)
+    return is_wall((a,b), (c,d))
+
+def check_south((a,b):
+    (c,d) = (a,b)
+    move_south(c,d)
+    return is_wall((a,b), (c,d))    
+    
+def check_west((a,b):
+    (c,d) = (a,b)
+    move_west(c,d)
+    return is_wall((a,b), (c,d))
+
+def check_east((a,b):
+    (c,d) = (a,b)
+    move_east(c,d)
+    return is_wall((a,b), (c,d))
 
 possible_x = [1, 2, 3]
 possible_y = [1, 2, 3]
@@ -64,21 +85,67 @@ x_as = 1
 y_as = 1
 player_tile = (x_as, y_as)
 
-while player_tile != (3, 3):
-    while player_tile in (possible_x, possible_y):
-        possible_move = possible_move.split(" ")
-        
-        possible_move = " or ".join(possible_move)
-        print("You can travel {}.".format(possible_move.split(" ")))
-        player_input = input("Direction: ")
-        
-        for player_tile is_wall
+#while player_tile != (3, 3):
+    #if 4 <= player_tile <= 0:
+        #print error
+        #continue
 
-        if player_input == "n" and player_tile != (wall_1 or wall_2 or wall_3 or wall_4):
-            player_tile = move_north(player_tile)
-            possible_south = True
-            possible_east = True
+    #while player_tile in (possible_x, possible_y):
+        #possible_move = possible_move.split(" ")
+        
+        #possible_move = " or ".join(possible_move)
+        #print("You can travel {}.".format(possible_move.split(" ")))
+        #player_input = input("Direction: ")
+        
+        #for player_tile is_wall
+
+        #if player_input == "n" and player_tile != (wall_1 or wall_2 or wall_3 or wall_4):
+            #player_tile = move_north(player_tile)
+            #possible_south = True
+            #possible_east = True
             
-print(player_tile)
+#print(player_tile)
 
-   
+direction_check_north = player_tile
+check_north = check_north(direction_check_north)
+if direction_check_north == True:
+    possible_move += "(N)orth"
+           
+direction_check_east = player_tile
+check_east = check_east(direction_check_east)
+if direction_check_east == True:
+    possible_move += "(E)east"
+
+direction_check_south = player_tile
+check_south = check_south(direction_check_south)
+if direction_check_south == True:
+    possible_move += "(S)outh"
+
+direction_check_west = player_tile
+check_west = check_west(direction_check_west)
+if direction_check_west == True:
+    possible_move += "(W)est"
+    
+
+#print available directions
+
+if (player_input == "n") and (direction_check_north == True):
+    move_north(player_tile)
+else:
+    print("Not a valid direction!")
+
+if (player_input == "s") and (direction_check_south == True):
+    move_south(player_tile)
+else:
+    print("Not a valid direction!")  
+
+if (player_input == "w") and (direction_check_west == True):
+    move_west(player_tile)
+else:
+    print("Not a valid direction!")  
+
+if (player_input == "e") and (direction_check_east == True):
+    move_east(player_tile)
+else:
+    print("Not a valid direction!")    
+
