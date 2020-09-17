@@ -1,85 +1,68 @@
-# búa til breytur fyrir tile_1_1...
 
-# búa til function sem fara north, south, east, west
+def move_north(x):
+    (a, b) = x
+    c = (a, b+1)
+    return c
 
-#veggir 
-# tile_1_1 = 1.1
-# tile_1_2 = 1.2
-# tile_1_3 = 1.3
+def move_south(x):
+    (a, b) = x
+    c = (a, b-1)
+    return c
 
-# tile_2_1 = 2.1
-# tile_2_2 = 2.2
-# tile_2_3 = 2.3
+def move_west(x):
+    (a, b) = x
+    c = (a-1, b)
+    return c
 
-# tile_3_1 = 3.1
-# tile_3_2 = 3.2
-# tile_3_3 = 3.3
+def move_east(x):
+    (a, b) = x
+    c = (a+1, b)
+    return c
 
-# wall_1 = [2.3, 2.2] 
-# wall_2 = [2.2, 3.2]
-# wall_3 = [2.1, 3.1]
-# wall_4 = [1.1, 2.1]
-
-def move_north(x, y):
-    return (x, y+1)
-
-def move_south(x, y):
-    return (x, y-1)
-
-def move_west(x, y):
-    x -= 1
-    return (x, y)
-
-def move_east(x, y):
-    x += 1
-    return (x, y)
-
-def is_not_wall((a, b), (c, d)):
-    if ((a,b), (c,d)) or ((c,d), (a,b)) == ((2,3), (2,2)):
+def is_not_wall(first, second):
+    if ((first == (2, 3)) and (second == (2,2))) or ((first == (2, 2)) and (second == (2,3))):    
         return False
-    elif ((a,b), (c,d)) or ((c,d), (a,b)) == ((2,2), (3,2)):
+    elif ((first == (2, 2)) and (second == (3,2))) or ((first == (3, 2)) and (second == (2,2))):    
         return False
-    elif ((a,b), (c,d)) or ((c,d), (a,b)) == ((2,1), (3,1)):
+    elif ((first == (2, 1)) and (second == (3, 1))) or ((first == (3, 1)) and (second == (2, 1))):    
         return False
-    elif ((a,b), (c,d)) or ((c,d), (a,b)) == ((1,1), (2,1)):
+    elif ((first == (1, 1)) and (second == (2,1))) or ((first == (2, 1)) and (second == (1, 1))):    
         return False
     else:
         return True
 
-def check_north((a,b):
+def check_north(a):
     """Takes (x,y) axis, runs the direction funtion 
-    and then is_wall to check if the direction is available """
-    (c,d) = (a,b)
-    move_north(c,d)
-    return is_wall((a,b), (c,d))
+    and then is_not_wall to check if the direction is available """
+    second = a
+    first = move_north(a)
+    wall_check = is_not_wall(first, second)
+    return wall_check
 
-def check_south((a,b):
-    (c,d) = (a,b)
-    move_south(c,d)
-    return is_wall((a,b), (c,d))    
+def check_south(a):
+    second = a
+    first = move_south(a)
+    wall_check = is_not_wall(first, second)
+    return wall_check  
     
-def check_west((a,b):
-    (c,d) = (a,b)
-    move_west(c,d)
-    return is_wall((a,b), (c,d))
+def check_west(a):
+    second = a
+    first = move_west(a)
+    wall_check = is_not_wall(first, second)
+    return wall_check
 
-def check_east((a,b):
-    (c,d) = (a,b)
-    move_east(c,d)
-    return is_wall((a,b), (c,d))
+def check_east(a):
+    second = a
+    first = move_east(a)
+    wall_check = is_not_wall(first, second)
+    return wall_check
 
-possible_x = [1, 2, 3]
-possible_y = [1, 2, 3]
 
-possible_move = "You can travel: " 
+possible_tiles = [(1, 1), (1, 2), (1, 3), (2, 1), (2, 2), (2, 3), (3, 1), (3, 2), (3, 3)]
 
-possible_north = True
-possible_south = False
-possible_west = False
-possible_east = False
+possible_move = "" 
 
-x_as = 1
-y_as = 1
+
 player_tile = (1, 1)
 
 #while player_tile != (3, 3):
@@ -94,7 +77,7 @@ player_tile = (1, 1)
         #print("You can travel {}.".format(possible_move.split(" ")))
         #player_input = input("Direction: ")
         
-        #for player_tile is_wall
+        #for player_tile is_not_wall
 
         #if player_input == "n" and player_tile != (wall_1 or wall_2 or wall_3 or wall_4):
             #player_tile = move_north(player_tile)
@@ -103,41 +86,69 @@ player_tile = (1, 1)
             
 #print(player_tile)
 
-while player_tile in (possible_x, possible_y):
-    while player_tile != (3, 3):
-        
-        direction_check_north = player_tile
-        check_north = check_north(direction_check_north)
-        if check_north == True:
-            possible_move += "(N)orth"
-                
-        direction_check_east = player_tile
-        check_east = check_east(direction_check_east)
-        if check_east == True:
-            possible_move += "(E)east"
 
-        direction_check_south = player_tile
-        check_south = check_south(direction_check_south)
-        if check_south == True:
-            possible_move += "(S)outh"
-
-        direction_check_west = player_tile
-        check_west = check_west(direction_check_west)
-        if check_west == True:
-            possible_move += "(W)est"
+while player_tile in possible_tiles:
+    possible_move = ""
+    if player_tile == (3, 1):
+        print("Victory!")
+        break
             
-        #print available directions
-        
-        if (player_input == "n") and (check_north == True):
-            move_north(player_tile)
+    direction_check_north = player_tile
+    north = check_north(direction_check_north)
+    direction_check_north = move_north(direction_check_north)
+    if (north == True) and (direction_check_north in possible_tiles):
+        possible_move += "(N)orth "
+            
+    direction_check_east = player_tile
+    east = check_east(direction_check_east)
+    direction_check_east = move_east(direction_check_east)
+    if (east == True) and (direction_check_east in possible_tiles):
+        possible_move += "(E)ast "
 
-        elif (player_input == "s") and (check_south == True):
-            move_south(player_tile)
+    direction_check_south = player_tile
+    south = check_south(direction_check_south)
+    direction_check_south = move_south(direction_check_south)
+    if (south == True) and (direction_check_south in possible_tiles):
+        possible_move += "(S)outh "
 
-        elif (player_input == "w") and (check_west == True):
-            move_west(player_tile)
+    direction_check_west = player_tile
+    west = check_west(direction_check_west)
+    direction_check_west = move_west(direction_check_west)
+    if (west == True) and (direction_check_west in possible_tiles):
+        possible_move += "(W)est "
+    
+    #print available directions
+    
+    if len(possible_move) > 15:
+        #splitta 2x
+        possible_move = possible_move.split()
+        string_print = " or ".join(possible_move)
+        print("You can travel: {}.".format(string_print))
 
-        elif (player_input == "e") and (check_east == True):
-            move_east(player_tile)
-        else:
-            print("Not a valid direction!")
+    elif 8 < len(possible_move) <= 15:
+        #splitta 1x
+        possible_move = possible_move.split()
+        string_print = " or ".join(possible_move)
+        print("You can travel: {}.".format(string_print))
+    else:
+        print("You can travel:", possible_move)
+
+    player_input = input("Direction: ")
+    player_input = player_input.lower
+    
+    if (player_input == "n") and (north == True) and (direction_check_north in possible_tiles):
+        player_tile = move_north(player_tile)
+
+    elif (player_input == "s") and (south == True) and (direction_check_south in possible_tiles):
+        player_tile = move_south(player_tile)
+
+    elif (player_input == "w") and (west == True) and (direction_check_west in possible_tiles):
+        player_tile = move_west(player_tile)
+
+    elif (player_input == "e") and (east == True) and (direction_check_east in possible_tiles):
+        player_tile = move_east(player_tile)
+    else:
+        print("Not a valid direction!")
+        continue
+
+     
