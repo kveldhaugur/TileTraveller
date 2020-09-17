@@ -134,7 +134,7 @@ while player_tile in possible_tiles:
         print("You can travel:", possible_move)
 
     player_input = input("Direction: ")
-    player_input = player_input.lower
+    player_input = player_input.lower()
     
     if (player_input == "n") and (north == True) and (direction_check_north in possible_tiles):
         player_tile = move_north(player_tile)
