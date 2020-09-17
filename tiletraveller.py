@@ -131,7 +131,7 @@ while player_tile in possible_tiles:
         string_print = " or ".join(possible_move)
         print("You can travel: {}.".format(string_print))
     else:
-        print("You can travel:", possible_move)
+        print("You can travel:", possible_move[:-1] + ".")
 
     player_input = input("Direction: ")
     player_input = player_input.lower()
