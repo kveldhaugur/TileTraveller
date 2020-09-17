@@ -21,12 +21,10 @@
 # wall_4 = [1.1, 2.1]
 
 def move_north(x, y):
-    y += 1
-    return (x, y)
+    return (x, y+1)
 
 def move_south(x, y):
-    y -= 1
-    return (x, y)
+    return (x, y-1)
 
 def move_west(x, y):
     x -= 1
@@ -36,18 +34,17 @@ def move_east(x, y):
     x += 1
     return (x, y)
 
-def is_wall((a,b), (c,d)):
+def is_not_wall((a, b), (c, d)):
     if ((a,b), (c,d)) or ((c,d), (a,b)) == ((2,3), (2,2)):
-        return True
-    if ((a,b), (c,d)) or ((c,d), (a,b)) == ((2,2), (3,2)):
-        return True
-    if ((a,b), (c,d)) or ((c,d), (a,b)) == ((2,1), (3,1)):
-        return True
-    if ((a,b), (c,d)) or ((c,d), (a,b)) == ((1,1), (2,1)):
-        return True
-    else:
         return False
-
+    elif ((a,b), (c,d)) or ((c,d), (a,b)) == ((2,2), (3,2)):
+        return False
+    elif ((a,b), (c,d)) or ((c,d), (a,b)) == ((2,1), (3,1)):
+        return False
+    elif ((a,b), (c,d)) or ((c,d), (a,b)) == ((1,1), (2,1)):
+        return False
+    else:
+        return True
 
 def check_north((a,b):
     """Takes (x,y) axis, runs the direction funtion 
@@ -74,7 +71,7 @@ def check_east((a,b):
 possible_x = [1, 2, 3]
 possible_y = [1, 2, 3]
 
-possible_move = "(N)orth (S)outh (W)est (E)ast" 
+possible_move = "You can travel: " 
 
 possible_north = True
 possible_south = False
@@ -83,7 +80,7 @@ possible_east = False
 
 x_as = 1
 y_as = 1
-player_tile = (x_as, y_as)
+player_tile = (1, 1)
 
 #while player_tile != (3, 3):
     #if 4 <= player_tile <= 0:
@@ -106,46 +103,41 @@ player_tile = (x_as, y_as)
             
 #print(player_tile)
 
-direction_check_north = player_tile
-check_north = check_north(direction_check_north)
-if direction_check_north == True:
-    possible_move += "(N)orth"
-           
-direction_check_east = player_tile
-check_east = check_east(direction_check_east)
-if direction_check_east == True:
-    possible_move += "(E)east"
+while player_tile in (possible_x, possible_y):
+    while player_tile != (3, 3):
+        
+        direction_check_north = player_tile
+        check_north = check_north(direction_check_north)
+        if check_north == True:
+            possible_move += "(N)orth"
+                
+        direction_check_east = player_tile
+        check_east = check_east(direction_check_east)
+        if check_east == True:
+            possible_move += "(E)east"
 
-direction_check_south = player_tile
-check_south = check_south(direction_check_south)
-if direction_check_south == True:
-    possible_move += "(S)outh"
+        direction_check_south = player_tile
+        check_south = check_south(direction_check_south)
+        if check_south == True:
+            possible_move += "(S)outh"
 
-direction_check_west = player_tile
-check_west = check_west(direction_check_west)
-if direction_check_west == True:
-    possible_move += "(W)est"
-    
+        direction_check_west = player_tile
+        check_west = check_west(direction_check_west)
+        if check_west == True:
+            possible_move += "(W)est"
+            
+        #print available directions
+        
+        if (player_input == "n") and (check_north == True):
+            move_north(player_tile)
 
-#print available directions
+        elif (player_input == "s") and (check_south == True):
+            move_south(player_tile)
 
-if (player_input == "n") and (direction_check_north == True):
-    move_north(player_tile)
-else:
-    print("Not a valid direction!")
+        elif (player_input == "w") and (check_west == True):
+            move_west(player_tile)
 
-if (player_input == "s") and (direction_check_south == True):
-    move_south(player_tile)
-else:
-    print("Not a valid direction!")  
-
-if (player_input == "w") and (direction_check_west == True):
-    move_west(player_tile)
-else:
-    print("Not a valid direction!")  
-
-if (player_input == "e") and (direction_check_east == True):
-    move_east(player_tile)
-else:
-    print("Not a valid direction!")    
-
+        elif (player_input == "e") and (check_east == True):
+            move_east(player_tile)
+        else:
+            print("Not a valid direction!")
